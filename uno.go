@@ -24,6 +24,24 @@ func switchExample(inputValue int) {
     }
 }
 
+func arrayEg(){
+    fmt.Println("::::ARRAYS:::")
+    // fIXED sIZE , same type 
+    iteger1 := [...] int {1,2,3,4,5}
+    //lo mismo pero esta vez indicando el tamanio y no los ...
+    iteger2 := [5] int {1,2,3,4,5}
+
+    //Lenght:
+    fmt.Println(len(iteger1))
+    fmt.Println(len(iteger2))
+}
+
+func sliceEg(arrInput [5] string){
+    fmt.Println("::::sliceEg:::")
+    fmt.Println(arrInput[1:3])
+    fmt.Println(len(arrInput[1:3]))
+}
+
 func main() {
     //declaring a integer variable x
     var x int
@@ -61,7 +79,7 @@ func main() {
 
 
      var x1 = 50
-    if x1 < 10 {
+    if x1 < 10 && (x < 20 || x<25) {
         //Executes if x < 10
         fmt.Println("x is less than 10")
     }else{
@@ -69,4 +87,8 @@ func main() {
     } 
 
     switchExample(2)
+
+    arrayEg()
+    arr := [5] string {"one", "two", "three", "four", "five"}
+    sliceEg(arr)
 }
