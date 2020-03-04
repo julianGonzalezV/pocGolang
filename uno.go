@@ -10,6 +10,11 @@ func forExample() {
     }
 }
 
+//Defer statements
+func sample1(){
+    fmt.Println("Inside the sample()")
+}
+
 
 func switchExample(inputValue int) {  
     switch inputValue {
@@ -40,6 +45,15 @@ func sliceEg(arrInput [5] string){
     fmt.Println("::::sliceEg:::")
     fmt.Println(arrInput[1:3])
     fmt.Println(len(arrInput[1:3]))
+}
+
+//calc is the function name which accepts two integers num1 and num2
+//(int, int) says that the function returns two values, both of integer type.
+func sumDiff(num1 int, num2 int)(int, int) {  
+    fmt.Println("sumDiff")
+    sum := num1 + num2
+    diff := num1 - num2
+    return sum, diff
 }
 
 func main() {
@@ -91,4 +105,9 @@ func main() {
     arrayEg()
     arr := [5] string {"one", "two", "three", "four", "five"}
     sliceEg(arr)
+    sm,df := sumDiff(5,6)
+    fmt.Println(sm,df)
+
+    defer sample1()
+    fmt.Println("Inside the main()")
 }
