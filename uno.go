@@ -11,8 +11,8 @@ func forExample() {
 }
 
 //Defer statements
-func sample1(){
-    fmt.Println("Inside the sample()")
+func sample1(num int){
+    fmt.Println("Inside DEFER the sample()",num)
 }
 
 
@@ -54,6 +54,22 @@ func sumDiff(num1 int, num2 int)(int, int) {
     sum := num1 + num2
     diff := num1 - num2
     return sum, diff
+}
+
+// Esta es una funcion
+func displayEmp(emp employee){
+    fmt.Println("displayEmp", emp.name)
+}
+
+// Convitiendo funcion displayEmp a método 
+func(emp employee) displayEmpMet(){
+    fmt.Println("displayEmpM", emp.name)
+}
+
+type employee struct{
+    name string
+    address string
+    age int
 }
 
 func main() {
@@ -108,6 +124,71 @@ func main() {
     sm,df := sumDiff(5,6)
     fmt.Println(sm,df)
 
-    defer sample1()
+    //Note la palabra reservada defer, IMPORTANTE: note que así lo coloque de primero dentro del main 
+    // de igual forma este no se ejecutará hasta que el MAIN termine
+    defer sample1(1)
     fmt.Println("Inside the main()")
+
+    //y que pasaría con multiples Defers?:
+    defer sample1(101)
+    defer sample1(102)
+    defer sample1(103)
+    defer sample1(104) //R funcionaría como un stack LIFO lasti int first out
+
+    //Pointers::::::::::
+    a1 := 20
+    // el oerador & en go se usa para que obtenga la direccion en memoria de una variable
+	fmt.Println("Address:",&a1)//imprime la direccoin en memoria de la variable a 
+    fmt.Println("Value:",a1)//imprime el valor de la variable a
+    // SI! y que es un pointer?
+    var b1 *int = &a1//un pointer es tipo de dato que se asigna a variable en donde se desea la direccion en memoria de otra variable
+    // Cómo asi?? 
+    // Si, note como la variable b es un pointer por el *+Type de tipo inte que almacena la direccion de la variable a1
+    fmt.Println("Address of pointer b1:",b1)
+    // OJO tambien pude hacer var b1  = &a1 (sin *) pero por type inference el se resuelve a *int, sin embargo mejor usarlo para 
+    // entender que es un Pointer de manera mas clara   
+    fmt.Println("Value of pointer b1:",*b1) // note el * que en este caso se una para obtrener el valor de b1 
+
+    // Structures::::::::::::::: podrian hacer el compare con DTO/POJOS en java
+    // a diferencia de Arra[] structures permiten elementos del mismo o diferente tipo de datos 
+    /*
+    type employee struct{
+        name string
+        address string
+        age int
+    }*/
+
+    var employee1 employee // instancia
+    employee1.name= "julito" // valores
+    employee1.address = "andinapolis"
+    employee1.age = 32
+
+    
+    employee2 := employee{"Raj", "Building-1, Delhi", 25}
+    displayEmp(employee1)
+    displayEmp(employee2)
+
+    // Methods(not functions) OJO con la anotacion de que no son Functions 
+    /*
+    Sintaxis
+    func (variable variabletype) methodName(parameter1 paramether1type) {  
+    }
+    */
+    // Note que esto no es orientado a objetos, de hecho GO no es orientado a objetos 
+    // esto es mas como composicion(queda a futuro cuando sea bien teso, evaluar)
+    //"Methods give a feel of what you do in object oriented programs " PERO nOOO  lo es
+    employee1.displayEmpMet()
+    employee2.displayEmpMet()
+    //CONCURRENCY::::::::::::
+    /*Reordar que concurrency no es lo mismo que Paralelismo, pues el primero se trata de que los procesos comparte la misma
+    CPU y es la CPU es la que gestiona la ejecucion concurrente pero PARALELISMO ES LITERALMENTE 2 TAREAS CORRIENDO AL MISMO 
+    TIEMPO, BIEN SEA en otro núcleo o otro nodo fisico/virtual
+    */
+
+    //Goroutines: Es la forma en que Go logra ejecutar procesos concurrentemente
+    //Goroutine es una funcion que puede correr concurrentemente con otras funciones
+
+
+    
+
 }
