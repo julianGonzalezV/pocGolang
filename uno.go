@@ -1,5 +1,6 @@
 package main
 import ("fmt")//fmt Package fmt implements formatted I/O
+import "time"
 
 
 func forExample() {  
@@ -70,6 +71,22 @@ type employee struct{
     name string
     address string
     age int
+}
+
+func displayNumberLoop(num int) {
+	for i:=0; i<=num; i++ {
+       // time.Sleep(1 * time.Second)
+		fmt.Println("display outside",i)
+	}
+}
+
+func displayNumberLoopChannel(numCh chan int) {
+	for i:=0; i<=4; i++ {
+       // time.Sleep(1 * time.Second)
+        fmt.Println("channel outside",i)
+        
+    }
+    numCh <- 33 // push data to the channel
 }
 
 func main() {
@@ -188,7 +205,26 @@ func main() {
     //Goroutines: Es la forma en que Go logra ejecutar procesos concurrentemente
     //Goroutine es una funcion que puede correr concurrentemente con otras funciones
 
+    numberLoop := 3 
+    /* Note que sin el time.Sleep(1 * time.Second) dentro de displayNumberLoop entonces la funcion gorutine (que se llama con go antes del 
+        nombre de la funcion) no se alcanza a ejecutar porque de una sigue con el for en la línea 202 que el programa principal
+        y la idea es que el proceso principal que correo no lo tenga que esperar
+        > una go rutine precisamente es para eso, para que se pueda continuar la ejcución del método actual(en este caso el Main)
+        y en una especied de priceso por debajo - underneath process se ejecute en este caso el displayNumberLoop*/
+    go displayNumberLoop(numberLoop)
+    //The main() continues without waiting for display()
+	for i:=0; i<=numberLoop; i++{
+        time.Sleep(1 * time.Second) // sin el time.Sleep(1 * time.Second) acá no se apcanza a ejecutar la go rutine anterior
+        fmt.Println("loop in MAIN", i)
+    }
 
-    
+
+    //Channels
+    nCh := make(chan int)
+    go displayNumberLoopChannel(nCh)
+    outVar := <- nCh //receive data from the channel
+    fmt.Println("Inside main()")
+	fmt.Println("Printing outVar in main() after taking from channel:",outVar)
+
 
 }
