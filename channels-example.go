@@ -2,7 +2,12 @@ package main
 import "fmt"
 import "time"
 
-//This subroutine pushes numbers 0 to 9 to the channel and closes the channel
+/*
+Channels:::::::
+Channels are a way for functions to communicate with each other. It can be thought as a 
+medium to where one routine places data and is accessed by another routine.
+
+This subroutine pushes numbers 0 to 9 to the channel and closes the channel*/
 // este es el Sender 
 func add_to_channel(ch chan int) {	
 	fmt.Println("Send data")
@@ -61,8 +66,8 @@ func main() {
 	go add_to_channel(ch)
 	go fetch_from_channel(ch)
 	//go fetch2_from_channel(ch) 
-	/* por ahora y desconocimiento al colocar fetch2 a leer del channel el fetch1 de la linea 61
-	no se ejecuta*/
+	/* por ahora y desconocimiento al colocar fetch2_from_channel a leer del channel el fetch1 de la linea 61
+	no se ejecuta, en el futuro sabré el motivo :)*/
 
 	//delay is to prevent the exiting of main() before goroutines finish
 	time.Sleep(5 * time.Second)

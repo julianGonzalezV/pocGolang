@@ -2,7 +2,7 @@ package main
 import "fmt"
 import "time"
 
-/*SELECT es un switch case de channel where the case slected is the first channel who has executed first all it 
+/*SELECT es un switch case de channel where the case selected is the first channel who has executed first all its 
 computing process
 */
 
