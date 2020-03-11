@@ -220,10 +220,13 @@ func main() {
 
 
     //Channels
+    // Note como a comparacion de lo anterior acá no es necesario colocar timers para que se ejecute primero 
+    // displayNumberLoopChannel
     nCh := make(chan int)
     go displayNumberLoopChannel(nCh)
-    outVar := <- nCh //receive data from the channel
-    fmt.Println("Inside main()")
+    outVar, status := <- nCh //receive data from the channel, espera hasta recibirlos espera == se bloquea 
+    //If the status is True it means you received data from the channel. If false, it means you are trying to read from a closed channel
+    fmt.Println("Inside main()",status)
 	fmt.Println("Printing outVar in main() after taking from channel:",outVar)
 
 
