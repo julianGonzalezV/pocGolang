@@ -2,12 +2,13 @@
 
 MUTEX::::::::
 Short from para mutual exclusion
-Se usa cuando se desea que un recurso no sea accedido por multiples subrutinas 
+Se usa cuando se desea que un recurso no sea accedido por multiples subrutinas
 , sedebe importar el package sync
 
 */
 
 package main
+
 import "fmt"
 import "time"
 import "strconv"
@@ -18,17 +19,18 @@ import "sync"
 //declare a mutex instance
 var mu sync.Mutex
 var countm = 0
-//declare count variable, which is accessed by all the routine instances
+
+// count declare count variable, which is accessed by all the routine instances
 var count = 0
 
-//copies count to temp, do some processing(increment) and store back to count
+// process copies count to temp, do some processing(increment) and store back to count
 //random delay is added between reading and writing of count variable
 func process(n int) {
 	//loop incrementing the count by 10
 	for i := 0; i < 10; i++ {
 		time.Sleep(time.Duration(rand.Int31n(2)) * time.Second)
 		temp := count
-		temp++// el temp siempre va ainiciar el 1 más que el valor del count
+		temp++ // el temp siempre va ainiciar el 1 más que el valor del count
 		time.Sleep(time.Duration(rand.Int31n(2)) * time.Second)
 		count = temp
 	}
@@ -36,19 +38,19 @@ func process(n int) {
 }
 
 /**
-Version aplicando mutex que es como yn synch en java 
+Version aplicando mutex que es como yn synch en java
 */
 func processMutex(n int) {
 	//loop incrementing the count by 10
 	for i := 0; i < 10; i++ {
 		time.Sleep(time.Duration(rand.Int31n(2)) * time.Second)
-		// Mutex contiene 2 medtodos en lock y unlock con el fin de hacer el recurso(método, variables) exclusivo  
+		// Mutex contiene 2 medtodos en lock y unlock con el fin de hacer el recurso(método, variables) exclusivo
 		mu.Lock()
 		temp := countm
-		temp++// el temp siempre va ainiciar el 1 más que el valor del countm
+		temp++ // el temp siempre va ainiciar el 1 más que el valor del countm
 		time.Sleep(time.Duration(rand.Int31n(2)) * time.Second)
 		countm = temp
-		mu.Unlock()//debloqueo del recurso
+		mu.Unlock() //debloqueo del recurso
 	}
 	fmt.Println("countm after i="+strconv.Itoa(n)+" countm:", strconv.Itoa(countm))
 }
@@ -62,10 +64,10 @@ func main() {
 
 	//delay to wait for the routines to complete
 	time.Sleep(25 * time.Second)
-	fmt.Println("Final Count:", count)// note que el resultado no es 30 ! :o :o
+	fmt.Println("Final Count:", count) // note que el resultado no es 30 ! :o :o
 	/* 30 dado que el for de la línea 34 va de 1-->3(included), pero entonces que se hace???
-	ero asi lo corra varias veces no da los 30 y siempre da valorrs diferentes
-	"
-	MUTEX AL "RESCATE" !!:*/
-	fmt.Println("Final countm:", countm)// acá si es 30! :) :), peor esto es bloqueante ver que otras estrategias hay
+	   ero asi lo corra varias veces no da los 30 y siempre da valorrs diferentes
+	   "
+	   MUTEX AL "RESCATE" !!:*/
+	fmt.Println("Final countm:", countm) // acá si es 30! :) :), peor esto es bloqueante ver que otras estrategias hay
 }
