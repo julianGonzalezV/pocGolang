@@ -158,16 +158,16 @@ func main() {
 	fmt.Println("Address:",&a1)//imprime la direccoin en memoria de la variable a 
     fmt.Println("Value:",a1)//imprime el valor de la variable a
     // SI! y que es un pointer?
-    var b1 *int = &a1//un pointer es tipo de dato que se asigna a variable en donde se desea la direccion en memoria de otra variable
+    var b1 *int = &a1//un pointer es tipo de dato que se asigna a una variable en donde se desea la direccion en memoria de otra variable
     // Cómo asi?? 
-    // Si, note como la variable b es un pointer por el *+Type de tipo inte que almacena la direccion de la variable a1
+    // Si, note como la variable b1 es un pointer por el *+Type de tipo int que almacena la direccion de la variable a1
     fmt.Println("Address of pointer b1:",b1)
     // OJO tambien pude hacer var b1  = &a1 (sin *) pero por type inference el se resuelve a *int, sin embargo mejor usarlo para 
     // entender que es un Pointer de manera mas clara   
     fmt.Println("Value of pointer b1:",*b1) // note el * que en este caso se una para obtrener el valor de b1 
 
     // Structures::::::::::::::: podrian hacer el compare con DTO/POJOS en java
-    // a diferencia de Arra[] structures permiten elementos del mismo o diferente tipo de datos 
+    // a diferencia de Array[] structures permiten elementos del mismo o diferente tipo de datos 
     /*
     type employee struct{
         name string
