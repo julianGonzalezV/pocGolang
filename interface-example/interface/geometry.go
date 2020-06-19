@@ -1,6 +1,7 @@
-package interface
+package interfaces
 
-type geometry interface {
-	area() float64
-	perim() float64
+// Geometry interface example
+type Geometry interface {
+	Area() float64
+	Perim() float64
 }

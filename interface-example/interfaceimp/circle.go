@@ -4,14 +4,14 @@ import (
 	"math"
 )
 
-type circle struct {
-	radius float64
+type Circle struct {
+	Radius float64
 }
 
-func (c circle) area() float64 {
-	return math.Pi * c.radius * c.radius
+func (c Circle) Area() float64 {
+	return math.Pi * c.Radius * c.Radius
 }
 
-func (c circle) perim() float64 {
-	return 2 * math.Pi * c.radius
+func (c Circle) Perim() float64 {
+	return 2 * math.Pi * c.Radius
 }
