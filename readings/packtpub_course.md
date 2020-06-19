@@ -1,4 +1,5 @@
 
+# Some features
 C family (imperative, braces)
 Statically typed
 Garbage collected
@@ -14,9 +15,9 @@ Slices(number as the key):
 Arrays(number as the key):  
 Map(you choose the key type):
 
-#Structs
+# Structs
 collection of properties and functions, like objects in other languages 
 
-#Logs
+# Logs
 log.Fatal: Writes out a logging message and kills our app. Once the app's been killed, no more code runs.
 
