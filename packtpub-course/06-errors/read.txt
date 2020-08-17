@@ -1,10 +1,9 @@
-/*
 There are three types of errors that you might encounter:
 
 Syntax errors
 Runtime errors // during execution
 Semantic errors (Incorrect computations)
-*/
+
 
 /// Tips
 // Avoid runtime errors
@@ -12,13 +11,13 @@ Semantic errors (Incorrect computations)
 
 // Avoid Semantic errors:
 
-/* When Errors happen, we might want to:
+ When Errors happen, we might want to:
 Return the error to the caller
 Log the error and continue execution
 Stop the execution of the program
 Ignore it (this is highly not recommended)
 Panic (only in very rare conditions, we will discuss this further later)
-*/
+
 
 /// Acá un ejemplo de como podría crear errores personalizados para una librería http :)
 Guidelines when working with Errors and Panic
