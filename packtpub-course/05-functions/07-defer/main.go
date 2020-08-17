@@ -1,5 +1,8 @@
 package main
 
+/// Los defer se almacenan en una especie de estructura stack
+/// on ejecución LiFo cuando llega el momento de ejecutarlas todas
+
 ///The deferred functions are commonly used for performing "clean-up" activities
 import "fmt"
 
