@@ -1,5 +1,7 @@
 package main
 
+// An error in Go is a value.
+
 import (
 	"errors"
 	"fmt"
