@@ -9,12 +9,13 @@ Se usa cuando se desea que un recurso no sea accedido por multiples subrutinas
 
 package main
 
-import "fmt"
-import "time"
-import "strconv"
-import "math/rand"
-
-import "sync"
+import (
+	"fmt"
+	"math/rand"
+	"strconv"
+	"sync"
+	"time"
+)
 
 //declare a mutex instance
 var mu sync.Mutex
@@ -30,7 +31,7 @@ func process(n int) {
 	for i := 0; i < 10; i++ {
 		time.Sleep(time.Duration(rand.Int31n(2)) * time.Second)
 		temp := count
-		temp++ // el temp siempre va ainiciar el 1 más que el valor del count
+		temp++ // el temp siempre va a iniciar en más 1  el valor del count
 		time.Sleep(time.Duration(rand.Int31n(2)) * time.Second)
 		count = temp
 	}
@@ -47,7 +48,7 @@ func processMutex(n int) {
 		// Mutex contiene 2 medtodos en lock y unlock con el fin de hacer el recurso(método, variables) exclusivo
 		mu.Lock()
 		temp := countm
-		temp++ // el temp siempre va ainiciar el 1 más que el valor del countm
+		temp++ // el temp siempre va a iniciar en 1 más que el valor del countm
 		time.Sleep(time.Duration(rand.Int31n(2)) * time.Second)
 		countm = temp
 		mu.Unlock() //debloqueo del recurso
@@ -65,9 +66,9 @@ func main() {
 	//delay to wait for the routines to complete
 	time.Sleep(25 * time.Second)
 	fmt.Println("Final Count:", count) // note que el resultado no es 30 ! :o :o
-	/* 30 dado que el for de la línea 34 va de 1-->3(included), pero entonces que se hace???
-	   ero asi lo corra varias veces no da los 30 y siempre da valorrs diferentes
+	/* Se habla de 30 porque que el for de la línea 34 va de 1-->3(included), pero entonces que se hace???
+	   asi lo corra varias veces no da los 30 y siempre da valores diferentes
 	   "
 	   MUTEX AL "RESCATE" !!:*/
-	fmt.Println("Final countm:", countm) // acá si es 30! :) :), peor esto es bloqueante ver que otras estrategias hay
+	fmt.Println("Final countm:", countm) // acá si es 30! :) :), pero esto es bloqueante ver que otras estrategias hay
 }
