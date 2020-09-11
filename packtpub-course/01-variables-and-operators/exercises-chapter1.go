@@ -9,7 +9,7 @@ func swap(a *int, b *int) {
 	// R/
 	var aux = *a // dereference
 	*a = *b      // normal
-	*b = *&aux   // &aux creates a pointer based on var aux L10. After that, * get the value/dereference
+	*b = *&aux   // &aux creates a pointer based on aux variable(L10). After that, * get the value/dereference
 }
 
 func main() {

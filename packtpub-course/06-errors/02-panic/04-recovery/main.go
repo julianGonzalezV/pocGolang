@@ -12,12 +12,14 @@ var (
 
 func payDay(hoursWorked, hourlyRate int) int {
 	report := func() {
-		if r := recover(); r != nil {
+		// Recovery se usa para revisar el return value de la funcion actual, por eso debe ser defer (L25 	defer report())
+		// ya que se ejecutaría al final
+		if r := recover(); r != nil { // Si r no es nil entonces un panic ha ocurrido
 			if r == ErrHourlyRate {
-				fmt.Printf("hourly rate: %d\nerr: %v\n\n", hourlyRate, r)
+				fmt.Printf("hourly rate::::: %d\nerr: %v\n\n", hourlyRate, r)
 			}
 			if r == ErrHoursWorked {
-				fmt.Printf("hours worked: %d\nerr: %v\n\n", hoursWorked, r)
+				fmt.Printf("hours worked:::: %d\nerr: %v\n\n", hoursWorked, r)
 			}
 		}
 	}
