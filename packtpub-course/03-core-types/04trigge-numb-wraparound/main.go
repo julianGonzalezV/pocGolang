@@ -32,7 +32,7 @@ func main() {
 	//The byte type in Go is just an alias for uint8
 
 	/// TEXT Raw(usin ``) and Interpreted(using "") Strings literals
-	/// Note como con ` se imprime tal cual como se esqcribe, espacios, saltos de líena etc
+	/// Note como con ` se imprime tal cual como se esqcribe, espacios, saltos de línea etc
 	comment1 := `This is the BEST 
 thing ever!`
 	comment2 := `This is the BEST\nthing ever!`
