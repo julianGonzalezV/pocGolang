@@ -1,4 +1,4 @@
-package creational
+package singleton
 
 /// Nota: en varios lenguajes like java songleton es considerado un anti-pattern
 /*
