@@ -5,7 +5,8 @@ import (
 	"sync"
 )
 
-// Posibles causas(en mis pruebas) del mensaje fatal error: all goroutines are asleep - deadlock!
+// Cuanodo salga Error  "fatal error: all goroutines are asleep - deadlock!"
+//Entonces revisar:
 // 1) No se establece el buffer o se establece pero no con la cantidad suficiente (cantiad de items, ñike buckets)
 // 		y se procede an enviar data si tener en cuenta este tamaño
 //2) Se lee del channel más de lo que le llega(tamaño del buffer) ejemplo digo que el buffer es 2 y tengo 3 prints

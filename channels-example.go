@@ -1,18 +1,21 @@
 package main
-import "fmt"
-import "time"
+
+import (
+	"fmt"
+	"time"
+)
 
 /*
 Channels:::::::
-Channels are a way for functions to communicate with each other. It can be thought as a 
+Channels are a way for functions(processes) to communicate with each other. It can be thought as a
 medium to where one routine places data and is accessed by another routine.
 
 This subroutine pushes numbers 0 to 9 to the channel and closes the channel*/
-// este es el Sender 
-func add_to_channel(ch chan int) {	
+// este es el Sender
+func add_to_channel(ch chan int) {
 	fmt.Println("Send data")
-	for i:=0; i<10; i++ {
-		fmt.Println("Sending",i)
+	for i := 0; i < 10; i++ {
+		fmt.Println("Sending", i)
 		ch <- i //pushing data to channel
 	}
 	close(ch) //closing the channel
@@ -25,17 +28,17 @@ func fetch_from_channel(ch chan int) {
 	fmt.Println("Read data")
 	for {
 		//fetch data from channel
-x, status := <- ch
+		x, status := <-ch
 
 		//flag is true if data is received from the channel
-//flag is false when the channel is closed
-fmt.Println("Read data channe status",status)
-if status == true {
+		//flag is false when the channel is closed
+		fmt.Println("Read data channe status", status)
+		if status == true {
 			fmt.Println(x)
-		}else{
+		} else {
 			fmt.Println("Empty channel")
-			break	
-		}	
+			break
+		}
 	}
 }
 
@@ -43,17 +46,17 @@ func fetch2_from_channel(ch chan int) {
 	fmt.Println("Read data fetch2")
 	for {
 		//fetch data from channel
-x, status := <- ch
+		x, status := <-ch
 
 		//flag is true if data is received from the channel
-//flag is false when the channel is closed
-fmt.Println("fetch2 read data channe status",status)
-if status == true {
+		//flag is false when the channel is closed
+		fmt.Println("fetch2 read data channe status", status)
+		if status == true {
 			fmt.Println(x)
-		}else{
+		} else {
 			fmt.Println("fetch2 Empty channel")
-			break	
-		}	
+			break
+		}
 	}
 }
 
@@ -65,11 +68,11 @@ func main() {
 	//These routines execute simultaneously
 	go add_to_channel(ch)
 	go fetch_from_channel(ch)
-	//go fetch2_from_channel(ch) 
-	/* por ahora y desconocimiento al colocar fetch2_from_channel a leer del channel el fetch1 de la linea 61
+	//go fetch2_from_channel(ch)
+	/* por ahora y por desconocimiento al colocar fetch2_from_channel a leer del channel el fetch1 de la linea 61
 	no se ejecuta, en el futuro sabré el motivo :)*/
 
 	//delay is to prevent the exiting of main() before goroutines finish
-	time.Sleep(5 * time.Second)
+	time.Sleep(5 * time.Second) // sleep the main goRoutine
 	fmt.Println("Inside main()")
 }

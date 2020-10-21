@@ -39,7 +39,7 @@ func process(n int) {
 }
 
 /**
-Version aplicando mutex que es como yn synch en java
+Version aplicando mutex que es como un synchronized en java
 */
 func processMutex(n int) {
 	//loop incrementing the count by 10
