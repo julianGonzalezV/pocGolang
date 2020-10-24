@@ -91,3 +91,51 @@ func bufferedChannel2() {
 	fmt.Println("received => ", message)
 	wait.Wait()
 }
+
+/// For managing many incoming channels in the same goRoutine
+func selectingChannels(ch1, ch2 <-chan string, ch3 chan<- bool) {
+	for {
+		select {
+		case msg := <-ch1:
+			println(msg)
+		case msg := <-ch2:
+			println(msg)
+		case <-time.After(time.Second * 2):
+			println("Nothing received in 2 seconds. Exiting")
+			ch3 <- true
+			break
+		}
+	}
+}
+
+func sendString(ch chan<- string, s string) {
+	ch <- s
+}
+
+func selectAux() {
+	helloCh := make(chan string, 1)
+	goodbyeCh := make(chan string, 1)
+	quitCh := make(chan bool)
+	go selectingChannels(helloCh, goodbyeCh, quitCh)
+	go sendString(helloCh, "hello!")
+	time.Sleep(time.Second)
+	go sendString(goodbyeCh, "goodbye!")
+	<-quitCh
+}
+
+func rangingChannels() {
+	fmt.Println("rangingChannels => ")
+	ch := make(chan int)
+	go func() {
+		ch <- 1
+		time.Sleep(time.Second)
+
+		ch <- 2
+		close(ch)
+
+	}()
+	for v := range ch { // the range iterates all the time until the goroutine close the channel
+		println(v)
+	}
+
+}

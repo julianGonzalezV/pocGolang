@@ -10,7 +10,8 @@ import (
 
 // Mutex is used in concurrent programming but in golang we can see another
 // mechanism called "channels" BUT it is recommended to meet Mutex cause there
-// are scenarios where Channels don't fit well
+// are scenarios where Channels don't fit well or Mutex has better performance
+// (eg singletonMutex vs singletonChannel in folder safeSingleton )
 
 /// Meter sync.Mutex dentro del struct permitirá lock and unlock de la estructura
 /// entera sin necesesidad de estar llamando campo por campo que contenga el struct
