@@ -7,7 +7,7 @@ import (
 
 /// Slice son similares a array de heho es una capa sobre array pero con la diferencia
 /// que no hay que procuparse por el size, adios funciones retornando aaarays indicadndo su tamanio eg
-/// func x():[10]int    ..que pasa si necesito una función que aplique a cualeuier array? debo crear nmil funciones por cada tamaño?
+/// func x():[10]int    ..que pasa si necesito una función que aplique a cualquier array? debo crear mil funciones por cada tamaño?
 /// Slice al rescate!
 /// -Expandir a su necesidad
 /// -Comun verlo en muchos desarrollos
@@ -122,8 +122,8 @@ func appendNoLink() (int, int, int) {
 	fmt.Println("appendNoLink")
 	s1 := []int{1, 2, 3, 4, 5}
 	s2 := append([]int{}, s1...) // This method is the most commonly seen in real-world code when you need to ensure you get a copy of the value
-	/* una fora más optima de evitar consumo de memoria para el emty slice en el append []int{}
-	// trate de uasrlo en su vida diaria :)
+	/* una forma más optima de evitar consumo de memoria para el empty slice en el append []int{}
+	// trate de usarlo en su vida diaria :)
 		 s1 := []int{1, 2, 3, 4, 5}
 	  s2 := append(s1[:0:0], s1...)
 	*/

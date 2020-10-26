@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-func TestChannelSingleton(t *testing.T) {
+func TestChannelSingleton(te *testing.T) {
 	singleton1 := GetInstance()
 	singleton2 := GetInstance()
 	n := 5000

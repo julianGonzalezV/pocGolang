@@ -123,7 +123,7 @@ func main() {
 	fmt.Println(":::::::Struct types:::::::::")
 	// Tipo que permite especificar sus propiedades y tipos de dato de cada uno
 	// No tiene alguna forma de herencia, los designers hasta la fecha de publicado en libro
-	// consideran que herancia ha causado muchos problemas
+	// consideran que la herencia ha causado muchos problemas
 	//
 
 	fmt.Println(getUsers())
