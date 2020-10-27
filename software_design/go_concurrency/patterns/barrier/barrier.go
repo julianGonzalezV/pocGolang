@@ -1,5 +1,11 @@
 package barrier
 
+/// Para esperar por más de una respuesta procedende de multiples goRoutines
+/// ejemplo: multiples peticiones http ára contestar al cliente una sola vez
+/// OJO: Es solo un ejemplo pero la deficición es clara en decir que es para
+/// tareas que se dividen en multiples goRoutines para mejorar el performance
+/// de OPERACIONES PARALELAS que se deban contestar en un solo resultado
+
 import (
 	"bytes"
 	"fmt"
