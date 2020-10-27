@@ -1,5 +1,7 @@
 package future
 
+import "fmt"
+
 /// Also called PROMISES
 ///
 /// Useful for  asynchronous programing; Write algorithms that will be executed
@@ -15,16 +17,39 @@ type SuccessFunc func(string)
 type FailFunc func(error)
 type ExecuteStrFunc func() (string, error)
 
-type MaybeString struct{}
+type MaybeString struct {
+	successFunc SuccessFunc
+	failFunc    FailFunc
+}
 
 func (s *MaybeString) Success(f SuccessFunc) *MaybeString {
-	return nil
+	s.successFunc = f // storing success func f into s variable
+	return s          /// al retornar el mismo *MaybeString permite el encadenamiento de computo
 }
 
 func (s *MaybeString) Fail(f FailFunc) *MaybeString {
-	return nil
+	s.failFunc = f
+	return s
 }
 
+/// Execute takes a ExecuteStrFunc and execute it asynchronously
 func (s *MaybeString) Execute(f ExecuteStrFunc) {
+	/// Delegating to a goRoutine the result when SUCESS or FAILURE
+	go func(inputMs *MaybeString) {
+		str, err := f()
+		if err != nil {
+			s.failFunc(err)
+		}
+		s.successFunc(str)
+	}(s)
+}
 
+func setContext(msg string) ExecuteStrFunc {
+	msg = fmt.Sprintf("%s Closure!\n", msg)
+	/// todo lo que está acá afuera no se correrá concurrentemente
+	/// y será ejecutado asincrónicamente antes de llamar la sgte funcion anónima
+	/// POR ESO trate de llevar la logica dentro de la función anónima
+	return func() (string, error) {
+		return msg, nil
+	}
 }

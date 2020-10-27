@@ -13,16 +13,31 @@ func TestStringrError(t *testing.T) {
 		wg.Add(1)
 		go timeout(t, &wg)
 		future.Success(func(s string) {
-			t.Fail()
+			t.Log("OooK! ", s)
 			wg.Done()
 		}).Fail(func(e error) {
-			t.Log(e.Error())
-
+			t.Log("Error es : ", e.Error())
+			t.Fail()
 			wg.Done()
 		})
 		future.Execute(func() (string, error) {
 			return "Execution 1 ", nil
 		})
+		wg.Wait()
+	})
+	t.Run("Sucess Clojure response => ", func(t *testing.T) {
+		var wg sync.WaitGroup
+		wg.Add(1)
+		go timeout(t, &wg)
+		future.Success(func(s string) {
+			t.Log("OooK! ", s)
+			wg.Done()
+		}).Fail(func(e error) {
+			t.Log("Error es : ", e.Error())
+			t.Fail()
+			wg.Done()
+		})
+		future.Execute(setContext("Execution 2 "))
 		wg.Wait()
 	})
 	t.Run("Error response=> ", func(t *testing.T) {
