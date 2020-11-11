@@ -1,5 +1,4 @@
-package  publish_subscriber
-
+package publish_subscriber
 
 /*Con este patron podemos:
 Offer an event-driven architecture where one event can trigger one or more
@@ -30,7 +29,7 @@ type Publisher interface {
 	RemoveSubscriberCh() chan<- Subscriber
 
 	/// PublishingCh set messages
-	PublishingCh() chan<- interface{}
+	PublishMessage() chan<- interface{}
 
 	/// Stops(the goRoutines) publisher and all subscribers related
 	Stop()

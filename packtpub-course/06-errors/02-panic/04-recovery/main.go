@@ -12,7 +12,7 @@ var (
 
 func payDay(hoursWorked, hourlyRate int) int {
 	report := func() {
-		// Recovery se usa para revisar el return value de la funcion actual, por eso debe ser defer (L25 	defer report())
+		// Recovery se usa para revisar el return value de la funcion actual, por eso debe ser defer (L26 	defer report())
 		// ya que se ejecutaría al final
 		if r := recover(); r != nil { // Si r no es nil entonces un panic ha ocurrido
 			if r == ErrHourlyRate {

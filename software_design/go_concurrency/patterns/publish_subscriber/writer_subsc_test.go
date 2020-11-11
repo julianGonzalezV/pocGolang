@@ -14,7 +14,7 @@ type mockWriter struct {
 
 /// Write function is required to implement io.Writer (param in NewWriterSubscriber in file writer_subsc_test.go )
 func (m *mockWriter) Write(p []byte) (n int, err error) {
-	fmt.Println("io.Writer mock implementation => ", p)
+	fmt.Println("io.Writer mock implementation => ", p, " => ", string(p))
 	m.testingFunc(string(p))
 	return len(p), nil
 }
@@ -25,7 +25,7 @@ func TestStdoutPrinter(t *testing.T) {
 func TestWriter(t *testing.T) {
 	sub := NewWriterSubscriber(0, nil)
 
-	msg := "publishing message 1"
+	msg := "publishing message FROM  TestWriter"
 	var wg sync.WaitGroup
 	wg.Add(1)
 
@@ -36,7 +36,7 @@ func TestWriter(t *testing.T) {
 	stdoutPrinter.Writer = &mockWriter{
 
 		testingFunc: func(res string) {
-			fmt.Println("testingFunc", res, msg)
+			fmt.Println("Msg received in testingFunc", res, msg)
 			if !strings.Contains(res, msg) {
 				t.Fatal(fmt.Errorf("Bad string: %s", res))
 			}

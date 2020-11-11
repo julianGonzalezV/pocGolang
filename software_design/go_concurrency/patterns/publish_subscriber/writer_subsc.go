@@ -15,19 +15,24 @@ type writerSubscriber struct {
 
 ///
 func (s *writerSubscriber) Notify(msg interface{}) (err error) {
+	fmt.Println("Message in Notify method msg ", msg)
+	// Recordar que "defer" ehjecuta esta funcion al final
 	defer func() {
-		if rec := recover(); rec != nil {
+		// Recovery se usa para revisar el return value de la funcion actual, por eso debe ser defer (L26 	defer report())
+		// ya que se ejecutaría al final
+		if rec := recover(); rec != nil { // si rec no es nil entonces un panic ha ocurrido
 			err = fmt.Errorf("%#v", rec)
 		}
 	}()
 
+	/// o toma el mensaje o será descartado si toma más de 1 segundo
 	select {
 	case s.in <- msg:
 	case <-time.After(time.Second):
 		err = fmt.Errorf("timeout\n ")
 	}
 
-	/// nothing in return cause variable err is supposed to return
+	/// apparently nothing is returned but "err" var is the result when achieve this line
 	return
 
 }

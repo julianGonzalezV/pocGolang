@@ -48,7 +48,7 @@ func TestPublisher(t *testing.T) {
 	///adding the mockSubscriber
 	p.AddSubscriberCh() <- sub
 	wg.Add(1)
-	p.PublishingCh() <- msg
+	p.PublishMessage() <- msg
 	wg.Wait()
 
 	//Type assertion for getting the concrete class
