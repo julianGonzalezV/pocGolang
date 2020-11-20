@@ -5,26 +5,26 @@ import (
 	"time"
 )
 
-// Value: Can be passed to functions, if the fuynctios change its value, this chanhe make efect only
+// Value: Can be passed to functions, if the function changes its value, this change make effect only
 // inside the function. because Go always make a copy before the function call
 //this cause memory consumption---Values  reside on the STACK
 //Pointer:  directions to a value you want, where you can only get the value and using it
 // Go doesnt make copies with pointers  --Pointers put its values on the HEAP
 
-// Garbage collector works on the HEAP
+// Garbage collector works on the HEAP(por eso si se manejan ok tienen mejor majeno de memoria)
 
 // tIP
 // To prevent runtime errors, you can compare a pointer to nil before
 // trying to get its value. This looks like <pointer> != nil.
 func main() {
-	// formas de crear un pruntero
-	var count1 *int    // 1
-	count2 := new(int) // 2
+	// formas de crear un puntero
+	var count1 *int    // eg 1
+	count2 := new(int) // eg 2
 
-	countTemp := 5       // 3
-	count3 := &countTemp // 3 Using &, create a pointer from the existing variable:
+	countTemp := 5       // eg 3.1 --create a variable (continue with 3.2)
+	count3 := &countTemp // eg 3.2 create a pointer Using &, create a pointer from the existing variable:
 
-	t := &time.Time{} // 4 from a struct ..in this case Time is a struct
+	t := &time.Time{} // eg5 from a struct ..in this case Time is a struct
 
 	fmt.Printf("count1: %#v\n", count1)
 	fmt.Printf("count2: %#v\n", count2)
