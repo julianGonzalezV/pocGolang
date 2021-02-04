@@ -20,7 +20,7 @@ func (c cat) Speak() string {
 /// este es como tener el famoso ToString en java
 /// For formatting when printing values
 func (c cat) String() string {
-	return fmt.Sprintf("%v (%v years old)", c.name, c.age)
+	return fmt.Sprintf("String impl %v (%v years old)", c.name, c.age)
 }
 
 /// Los types que implementan pueden tener funciones adicionales, se requiere que si deba
