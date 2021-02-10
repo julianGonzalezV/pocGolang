@@ -6,7 +6,7 @@ import (
 )
 
 /// Slice son similares a array de heho es una capa sobre array pero con la diferencia
-/// que no hay que procuparse por el size, adios funciones retornando aaarays indicadndo su tamanio eg
+/// que no hay que preocuparse por el size, adios funciones retornando Arrays INDICANDO su tamanio eg
 /// func x():[10]int    ..que pasa si necesito una función que aplique a cualquier array? debo crear mil funciones por cada tamaño?
 /// Slice al rescate!
 /// -Expandir a su necesidad
