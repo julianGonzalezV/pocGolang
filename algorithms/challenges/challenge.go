@@ -192,37 +192,48 @@ func searchByRowColumn(arr []string){
 
 /// Podría pensarse en hacerse más granular las operaciones con el fin de poder 
 /// hacer un uno mejor de goRoutines
-func searchByDiagonals(arr []string) {
-	rightDiagonalString:=""
-    for row := 1-len(arr); row < len(arr)-1; row++{
-		rightDiagonalString=""
-        for column := 0; column < len(arr); column++ {
-            if row == 0 {
-				continue;
-			}
-            if column == 0 {
-				continue;
-			}
-
-			rightDiagonalString+=string(arr[row-1][column-1])
-			rightDiagonalString+=string(arr[row][column])
-            //compara con la posicion superior izquierda
-			/*
-            if (matrix[row - 1][column - 1] == matrix[row][column]) {
-				//letterCounter++; else letterCounter = 1;
-			
-
-			}*/
-            //compara con la posicion superior derecha
-            //if (matrix[i + 1][j + 1] == matrix[i][j])letterCounter++; else letterCounter = 1;
-            //finaliza como verdadero si hay 4 letras iguales consecutivas
-           
-			/*if (letterCounter == 4){
-				//return true;
-			}*/
-
+func searchByLeftDiagonal(arr []string) {
+	leftDiagonalString:=""// esla que va en direccion => \
+	rowAux := 0 
+	column := 0 
+    for diag := 1-len(arr); diag < len(arr)-1; diag++{
+		rowAux = 0 
+		column = 0 
+		leftDiagonalString="" 
+		if(diag > 0){
+			column = diag 
+		}else{
+			rowAux = -diag
+		}
+        for row := rowAux; (row < len(arr) && column < len(arr)) ; row++ {
+            //fmt.Println("len(arr)=>",len(arr),"diag => ",diag, "row => ",row,"column => ",column)
+			leftDiagonalString += string(arr[column][row])
+			column++
         }
-		fmt.Println("rightDiagonalString => ",rightDiagonalString)
+		fmt.Println("leftDiagonalString => ",leftDiagonalString)
+    }
+    //return false;
+}
+
+func searchByRigthDiagonal(arr []string) {
+	rightDiagonalString:=""// esla que va en direccion => /
+	//rowAux := 0 
+	column := 0 
+    for diag := 0; diag < len(arr)-1; diag++{
+		//rowAux = 0 
+		column = 0 
+		rightDiagonalString="" 
+		if(diag > 0){
+			rowAux = diag			
+		}else{
+			column = -diag 
+		}*/
+        for row := diag; row >= 0; row-- {
+            fmt.Println("len(arr)=>",len(arr),"diag => ",diag, "row => ",row,"column => ",column)
+			rightDiagonalString += string(arr[column][row])
+			column++
+        }
+		//fmt.Println("rightDiagonalString => ",rightDiagonalString)
     }
     //return false;
 }
@@ -279,9 +290,9 @@ func sequenceValidatioin(arr []string) int {
 	log.Printf("searchByRowColumn took %s", elapsed)*/
 
 	start = time.Now()
-	searchByDiagonals(arr)
+	searchByRigthDiagonal(arr)
 	elapsed = time.Since(start)
-	log.Printf("searchByDiagonals took %s", elapsed)
+	log.Printf("searchByRigthDiagonal took %s", elapsed)
 
 	return 0
 }
