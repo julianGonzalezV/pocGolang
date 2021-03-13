@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"time"
 	"log"
+	"strings"
 )
 
 func sockMerchant(n int, ar []int) int {
@@ -160,40 +161,41 @@ func stringArrToMatriz(arr []string) [][]string{
 	return dnaMatriz
 }
 
-/// Por cada iteracion se recorren filas y columnas 
-/// Y las diagonales principales
-func searchByRowColumn(arr []string){
+/// searchByRowColumn recorre filas y columnas para evualuar en cada iteracion si existe un dna mutante 
+//  Note que se recorren filas y columnas a la misma vez con el fin de optimizar el algoritmo  
+func searchByRowColumn(arr []string) bool{
+	mutantExists:= false
 	rowString:=""
 	columnString:=""
-	leftDiagonalString:=""
-	rightDiagonalString:=""
 	rigthDiagAux:= len(arr)-1
 	colAux := 0
 	for row := 0; row < len(arr); row++ {	
-		leftDiagonalString += string(arr[row][rigthDiagAux])
-		rightDiagonalString+= string(arr[row][row])
 		rowString = ""
 		columnString = ""
 		for column := 0; column < len(arr); column++ {
 			rowString += string(arr[row][column])
 			columnString += string(arr[column][row])
 		}
-	
+		if mutantDna(rowString){
+			mutantExists = true
+			break
+		}	
 		colAux++
 		rigthDiagAux--
 		fmt.Println("rowString ",rowString)
+		fmt.Println("isMutant? => ",mutantDna(rowString))
 		fmt.Println("columnString-",columnString)
-		fmt.Println("diagonalStringTemp-",leftDiagonalString)
+		fmt.Println("isMutant? => ",mutantDna(columnString))
 	}
-	fmt.Println("diagonalString-",leftDiagonalString)
-	fmt.Println("diagonalString-",rightDiagonalString)
+
+	return mutantExists
 
 }
 
-/// Podría pensarse en hacerse más granular las operaciones con el fin de poder 
-/// hacer un uno mejor de goRoutines
-func searchByLeftDiagonal(arr []string) {
-	leftDiagonalString:=""// esla que va en direccion => \
+/// searchByLeftDiagonal valida la existencia de un Mutante en la diagonal  con esta inclinacion => \
+func searchByLeftDiagonal(arr []string) bool {
+	mutantExists:= false
+	leftDiagonalString:=""
 	rowAux := 0 
 	column := 0 
     for diag := 1-len(arr); diag < len(arr)-1; diag++{
@@ -206,95 +208,81 @@ func searchByLeftDiagonal(arr []string) {
 			rowAux = -diag
 		}
         for row := rowAux; (row < len(arr) && column < len(arr)) ; row++ {
-            //fmt.Println("len(arr)=>",len(arr),"diag => ",diag, "row => ",row,"column => ",column)
-			leftDiagonalString += string(arr[column][row])
+            fmt.Println("len(arr)=>",len(arr),"diag => ",diag, "row => ",row,"column => ",column)
+			leftDiagonalString += string(arr[row][column])
 			column++
         }
+		if mutantDna(rowString){
+			mutantExists = true
+			break
+		}
 		fmt.Println("leftDiagonalString => ",leftDiagonalString)
+		fmt.Println("isMutant? => ",mutantDna(leftDiagonalString))
     }
-    //return false;
+    return mutantExists;
 }
 
-func searchByRigthDiagonal(arr []string) {
+func searchByRigthDiagonal(arr []string) bool {
+	mutantExists:= false
 	rightDiagonalString:=""// esla que va en direccion => /
-	//rowAux := 0 
+	rowAux := 0 
 	column := 0 
-    for diag := 0; diag < len(arr)-1; diag++{
-		//rowAux = 0 
+	for diag := 1-len(arr); diag < len(arr)-1; diag++{
+		rowAux = diag 
 		column = 0 
 		rightDiagonalString="" 
 		if(diag > 0){
-			rowAux = diag			
+			column = diag
+			rowAux = len(arr)-1
 		}else{
-			column = -diag 
-		}*/
-        for row := diag; row >= 0; row-- {
-            fmt.Println("len(arr)=>",len(arr),"diag => ",diag, "row => ",row,"column => ",column)
-			rightDiagonalString += string(arr[column][row])
+			column = 0 
+			rowAux = (len(arr)-1)+diag
+		}
+        for row := rowAux; row >= 0 && column< len(arr); row-- {
+			rightDiagonalString += string(arr[row][column])
 			column++
         }
-		//fmt.Println("rightDiagonalString => ",rightDiagonalString)
+		if mutantDna(rowString){
+			mutantExists = true
+			break
+		}
+		fmt.Println("rightDiagonalString => ",rightDiagonalString)
+		fmt.Println("isMutant? => ",mutantDna(rightDiagonalString))
+		
     }
-    //return false;
+    return mutantExists;
 }
 
-
-
-
-func sequenceValidatioin(arr []string) int {
-	/*fmt.Println(arr[0])
-	fmt.Println(string(arr[0][0]) == "A")
-	fmt.Println(string(arr[0][0]))	
-	fmt.Println(string(arr[0][1]))
-	fmt.Println(arr[0][2])
-	fmt.Println(arr[0][3])*/
-
-	
-	//fmt.Println("dnaMatriz->",arrStringToMatriz(arr))
-
-	
-
-	/*
-	result := 0
-	for column := 0; column <= 3; column++ {
-		for row := 0; row <= 3; row++ {
-			summ := arr[row][column] + arr[row][column+1] + arr[row][column+2] +
-				arr[row+1][column+1] +
-				arr[row+2][column] + arr[row+2][column+1] + arr[row+2][column+2]
-
-			if summ > result {
-				result = summ
-			}
+/// mutantDna contienen todas las secuencias de caracteres que representan un gen mutante 
+/// Se decide hacerlo así ya que lo hace más escalable a futuro, imagine si le piden que 
+/// la regla de negocio cambió y que ya no es la secuencia de 4 letras iguales :O 
+/// Bajo el escenario anterior acá solamente es meter la nueva secuencia o a futuro poderla consultar
+/// de alguna base de datos!! 
+func mutantDna(dna string) bool {
+	mutantDna := false
+	correctSequences := []string{"AAAA", "TTTT", "CCCC", "GGGG"}
+	for _, seq := range correctSequences{
+		/// Si es string que llega a ser evaluado contiene alguna se las secuencias mutantes entonces e
+		/// puede trabajar para MAGNETO
+		if len(dna) >= len(seq) && strings.Contains(dna, seq){
+			fmt.Println("SE HA ENCONTRATO UNA SECUENCIA MUTANTE! ",dna)
 		}
+		mutantDna = len(dna) >= len(seq) && strings.Contains(dna, seq)
+	}
+	return mutantDna
+}
 
-	}*/
-
-	start := time.Now()
+/// sequenceValidation Orquesta todos los llamados para validar de DNA
+/// Note que se utiliza un OR operator, en caso de que se cumpla uno solo de una retorna el valor 
+/// sin tener que ir a los dermás caminos, esto también ayuda al algoritmo
+func sequenceValidation(arr []string) bool {
+	start := time.Now()	
+	if searchByRowColumn(arr) || 	searchByLeftDiagonal(arr) || searchByRigthDiagonal(arr){
+		return true 
+	}
 	elapsed := time.Since(start)
-
-	/*
-	start := time.Now()
-	dnaMatriz := stringArrToMatriz(arr)	
-	fmt.Println("dnaMatriz->",dnaMatriz)
-	elapsed := time.Since(start)
-	log.Printf("stringArrToMatriz took %s", elapsed)*/
-
-	/*start := time.Now()
-	searchByRowColumn2(stringArrToMatriz(arr))
-	elapsed := time.Since(start)
-	log.Printf("searchByRowColumn2 took %s", elapsed)*/
-	
-	/*start = time.Now()
-	searchByRowColumn(arr)
-	elapsed = time.Since(start)
-	log.Printf("searchByRowColumn took %s", elapsed)*/
-
-	start = time.Now()
-	searchByRigthDiagonal(arr)
-	elapsed = time.Since(start)
-	log.Printf("searchByRigthDiagonal took %s", elapsed)
-
-	return 0
+	log.Printf("sequenceValidatioin tooks %s", elapsed)
+	return false
 }
 
 func main() {
@@ -338,7 +326,7 @@ func main() {
 	fmt.Println(rightRotationGoStyle([]int{1, 2, 3, 4, 5}, 2))*/
 
 	fmt.Println(":::::Secuence Validation:::::::")
-	fmt.Println("#1 => ", sequenceValidatioin([]string{
+	fmt.Println("#sequenceValidation es => ", sequenceValidation([]string{
 		"ATGCGA",
 		"CAGTGC",
 		"TTATGT",
