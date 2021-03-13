@@ -9,11 +9,11 @@ import (
 // Channels(otra funcionalidad para escribir aplicaciones concurrentes)
 // - Medio de comunicación entre procesos
 // - ofrece una forma más natural y trasparente de implementar
-// concurrancia en golang
+// concurrencia en golang
 // -En la mayoría de veces terminamos con un mejor diseño si lo comparamos
 // con Mutex(mucho código y error prone)
-// Una o mas goRoutines pueden emitir y uno o más Groutines pueden recivor
-// como los programas de Tv :) (por cierto se emiten en dftes canales jeje)
+// Una o mas goRoutines pueden emitir y uno o más Groutines pueden recibir
+// como los programas de Tv :) (que por cierto se emiten en dftes canales jeje TNT, HBO, etc )
 
 func channel1() {
 	channel := make(chan string) // make(type) data type the channel will transport
@@ -58,7 +58,7 @@ func channelNoRecipientV2() {
 // se imprime siempre antes de que el recipient reciba el dato
 func bufferedChannel() {
 	var wait sync.WaitGroup
-	channel := make(chan string, 1) //1
+	channel := make(chan string, 1) //Buffer = 1
 	wait.Add(1)
 	go func() {
 		channel <- "Data 4"
@@ -78,7 +78,7 @@ func bufferedChannel() {
 // - se imprime Data 5 , Data6 y fisnis
 func bufferedChannel2() {
 	var wait sync.WaitGroup
-	channel := make(chan string, 1)
+	channel := make(chan string, 1) // Buffer = 1
 	wait.Add(1)
 	go func() {
 		channel <- "Data 5"

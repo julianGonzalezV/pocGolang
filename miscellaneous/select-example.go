@@ -11,7 +11,7 @@ computing process
 
 //push data to channel with a 4 second delay
 func data1(ch chan string) {
-	time.Sleep(4 * time.Second)
+	time.Sleep(1 * time.Second)
 	ch <- "from data1()"
 }
 
@@ -19,6 +19,11 @@ func data1(ch chan string) {
 func data2(ch chan string) {
 	time.Sleep(2 * time.Second)
 	ch <- "from data2()"
+}
+
+func dataDefault(ch chan string) {
+	time.Sleep(3 * time.Second)
+	ch <- "from dataDefault()"
 }
 
 func main() {
@@ -38,12 +43,11 @@ func main() {
 		fmt.Println(x)
 	case y := <-chan2:
 		fmt.Println(y)
-		/* si descomenta acá se dará cuenta que este el el camino seleccionado, ya que al existir timers en
+		/* si descomenta el default: acá se dará cuenta que este el el camino seleccionado, ya que al existir timers en
 		ambos channels entonces el default es ejecutado primero, sin importar si incluso tiene un timer time.Sleep(6 * time.Second)
-		dentro del defautl,ps ya ingrsó!!*/
-	default:
-
-		fmt.Println("Default case executed")
+		dentro del defautl,ps ya ingrsó!!
+		default:
+			fmt.Println("Caso por defecto")*/
 
 	}
 

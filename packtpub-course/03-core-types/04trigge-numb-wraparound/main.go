@@ -61,9 +61,9 @@ thing ever!`
 	}
 
 	fmt.Println(" Usinf RUNE : Converting to string and Printing every positions on username var")
-	/// El tipo Rune evita el error anterior con Ü, ya ques Ü es codiicado con multi-byte entonces
-	/// y Rune permite este almacenamieto de single o mutubyte codificacoin
-	/// lo que usamos por lo regualr con single
+	/// El tipo Rune evita el error anterior con Ü, ya ques Ü es codificado con multi-byte entonces
+	/// y Rune permite este almacenamieto de single o multi-byte codification
+	/// lo que usamos por lo regular con single
 	runes := []rune(username)
 	for i := 0; i < len(runes); i++ {
 		fmt.Print(string(runes[i]), " ")

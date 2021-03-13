@@ -2,7 +2,7 @@ package main
 
 func main() {
 	/// MUTEX
-	counterConcurrent()
+	CounterConcurrent()
 
 	// Ejecutando el comando $run -race 04mutexes.go main.go
 	// podrá ver si hay problemas de race condition

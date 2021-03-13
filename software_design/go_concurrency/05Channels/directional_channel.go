@@ -21,5 +21,5 @@ func directional1() {
 func receiverChannel(ch <-chan string) {
 	msg := <-ch
 	println(msg)
-	// ch <- "hello"no va a funcionr porque el parámetro dice que solo se reciben channel que escuchen
+	// ch <- "hello" //no va a funcionr porque el parámetro dice que solo se reciben channel que escuchen
 }

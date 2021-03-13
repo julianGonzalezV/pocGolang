@@ -32,6 +32,10 @@ func NewPointer(message string) *DateError {
 	}
 }
 
+func OtherF() {
+	fmt.Print("HI")
+}
+
 //PrintError ... recibe un tipo error o cualquier tipo que cumpla consu firma
 func (de DateError) PrintError(err error) string {
 	fmt.Println(err.Error())

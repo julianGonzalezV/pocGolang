@@ -76,7 +76,7 @@ type employee struct {
 
 func displayNumberLoop(num int) {
 	for i := 0; i <= num; i++ {
-		// time.Sleep(1 * time.Second)
+		time.Sleep(1 * time.Second)
 		fmt.Println("display outside", i)
 	}
 }
@@ -88,6 +88,7 @@ func displayNumberLoopChannel(numCh chan int) {
 
 	}
 	numCh <- 33 // push data to the channel
+	close(numCh)
 }
 
 func main() {
@@ -118,11 +119,13 @@ func main() {
 	fmt.Println(a)
 
 	//::::::::::::CONSTANTS:::::::::::::::::
+	fmt.Println(":::::::::::CONSTANT::::::::")
 	const b = 10
 	fmt.Println(b)
 	//    b = 30 no se puede realizar la asignacion por ser constan
 
 	//::::::::::::LOOPS:::::::::::::::::
+	fmt.Println(":::::::::::LOOPS::::::::")
 	forExample()
 
 	var x1 = 50
@@ -153,7 +156,8 @@ func main() {
 	defer sample1(104) //R funcionaría como un stack LIFO lasti int first out
 
 	//Pointers::::::::::
-	//Cuando usar pinters?:
+	fmt.Println("::::::Pointers::::::::::")
+	//Cuando usar pointers?:
 	/*
 			   -En un mètodo cuando este va a modificar el objeto directamente en lugar de retornar un valor
 		       -To avoid passing the full object's and save  memory used
@@ -169,11 +173,12 @@ func main() {
 	// Cómo asi??
 	// Si, note como la variable b1 es un pointer por el *+Type de tipo int que almacena la direccion de la variable a1
 	fmt.Println("Address of pointer b1:", b1)
-	// OJO tambien pude hacer var b1  = &a1 (sin *) pero por type inference el se resuelve a *int, sin embargo mejor usarlo para
+	// OJO tambien puede hacer var b1  = &a1 (sin *) pero por type inference el se resuelve a *int, sin embargo mejor usarlo para
 	// entender que es un Pointer de manera mas clara
-	fmt.Println("Value of pointer b1:", *b1) // note el * que en este caso se una para obtener el valor primitovo(no la direcciòn en memoria) de b1
+	fmt.Println("Value of pointer b1:", *b1) // note el * que en este caso se usa para obtener el valor primitivo(no la direcciòn en memoria) de b1
 
 	// Structures::::::::::::::: podrian hacer el compare con DTO/POJOS en java
+	fmt.Println(":::::::::::GOLANG STRUCT::::::::")
 	// a diferencia de Array[] structures permiten elementos del mismo o diferente tipo de datos
 	/*
 	   type employee struct{
@@ -203,7 +208,10 @@ func main() {
 	employee1.displayEmpMet()
 	employee2.displayEmpMet()
 	//CONCURRENCY::::::::::::
-	/*Reordar que concurrency no es lo mismo que Paralelismo, pues el primero se trata de que los procesos comparte la misma
+	fmt.Println(":::::::::::::::::::")
+	fmt.Println(":::::::::::GOROUTINES::::::::")
+	fmt.Println(":::::::::::::::::::")
+	/*Recordar que concurrency no es lo mismo que Paralelismo, pues el primero se trata de que los procesos comparte la misma
 	  CPU y es la CPU es la que gestiona la ejecucion concurrente pero PARALELISMO ES LITERALMENTE 2 TAREAS CORRIENDO AL MISMO
 	  TIEMPO, BIEN SEA en otro núcleo o otro nodo fisico/virtual
 	*/
@@ -212,11 +220,11 @@ func main() {
 	//Goroutine es una funcion que puede correr concurrentemente con otras funciones
 
 	numberLoop := 3
-	/* Note que sin el time.Sleep(1 * time.Second) dentro de displayNumberLoop entonces la funcion gorutine (que se llama con go antes del
+	/* Note que sin el time.Sleep(1 * time.Second) dentro de displayNumberLoop entonces la funcion goroutine (que se llama con go antes del
 	   nombre de la funcion) no se alcanza a ejecutar porque de una sigue con el for en la línea 202 que el programa principal
-	   y la idea es que el proceso principal que correo no lo tenga que esperar
-	   > una go rutine precisamente es para eso, para que se pueda continuar la ejcución del método actual(en este caso el Main)
-	   y en una especied de priceso por debajo - underneath process se ejecute en este caso el displayNumberLoop*/
+	   y la idea es que el proceso principal que corre no lo tenga que esperar
+	   > una go rutine precisamente es para eso, para que se pueda continuar la ejecución del método actual(en este caso el Main)
+	   y en una especie de proceso por debajo - underneath process se ejecute en este caso el displayNumberLoop*/
 	go displayNumberLoop(numberLoop)
 	//The main() continues without waiting for display()
 	for i := 0; i <= numberLoop; i++ {
@@ -225,6 +233,7 @@ func main() {
 	}
 
 	//Channels
+	fmt.Println(":::::::::::CHANNELS::::::::")
 	// Note como a comparacion de lo anterior acá no es necesario colocar timers para que se ejecute primero
 	// displayNumberLoopChannel
 	nCh := make(chan int)

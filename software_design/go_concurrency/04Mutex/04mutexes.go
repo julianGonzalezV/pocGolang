@@ -18,9 +18,9 @@ import (
 
 /// Nota:
 /// Existe el race detector ( run -race ), muy útil para detectar race conditions
-/// en nuestr código a la hora de implementar MNutex peero si no usamos Mutex
+/// en nuestro código a la hora de implementar Mutex peero si no usamos Mutex
 /// o realizamos un uso incorrecto (bad design) es posible que el race detector
-// no logre darse cuenta ejemplo
+// no logre darse cuenta, por ejemplo:
 // 	1) sin usar nada de Mutex
 //	2) Colocar el número de procesos en 1 GOMAXPROCS=1 go run -race main.go
 
@@ -29,7 +29,7 @@ type Counter struct {
 	value int
 }
 
-func counterConcurrent() {
+func CounterConcurrent() {
 	var wait sync.WaitGroup
 	println("Executing counterConcurrent")
 	goRoutines := 10

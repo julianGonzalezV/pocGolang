@@ -2,8 +2,8 @@
 Te concurrecy model used by golang is Communicating Sequential Processes (CSP),
 by contrast Actor model/system is used in languages like scala, erlang
 
-The actor system requires actors to know the processIds for sending messages eacho ther
-CSP no!, cause ut uses channels, the way to communocate between processes
+The actor system requires actors to know the processIds for sending messages eachother
+CSP no!, cause it uses channels, the way to communicate between processes
 because channels are completely anonymous
 
 ::::::::Goroutines:::::::::::::::.

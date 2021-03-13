@@ -13,7 +13,7 @@ medium to where one routine places data and is accessed by another routine.
 This subroutine pushes numbers 0 to 9 to the channel and closes the channel*/
 // este es el Sender
 func add_to_channel(ch chan int) {
-	fmt.Println("Send data")
+	fmt.Println("Sending data")
 	for i := 0; i < 10; i++ {
 		fmt.Println("Sending", i)
 		ch <- i //pushing data to channel
@@ -25,14 +25,14 @@ func add_to_channel(ch chan int) {
 //This subroutine fetches data from the channel and prints it.
 // este es el Reader, no cunsummer porque al crear arias go rutine kleyendo del channel no se notifican a todas
 func fetch_from_channel(ch chan int) {
-	fmt.Println("Read data")
+	fmt.Println("Reading data")
 	for {
 		//fetch data from channel
 		x, status := <-ch
 
 		//flag is true if data is received from the channel
 		//flag is false when the channel is closed
-		fmt.Println("Read data channe status", status)
+		fmt.Println("Read data channel status", status)
 		if status == true {
 			fmt.Println(x)
 		} else {
@@ -43,14 +43,14 @@ func fetch_from_channel(ch chan int) {
 }
 
 func fetch2_from_channel(ch chan int) {
-	fmt.Println("Read data fetch2")
+	fmt.Println("Reading data from fetch2")
 	for {
 		//fetch data from channel
 		x, status := <-ch
 
 		//flag is true if data is received from the channel
 		//flag is false when the channel is closed
-		fmt.Println("fetch2 read data channe status", status)
+		fmt.Println("fetch2 read data channel status", status)
 		if status == true {
 			fmt.Println(x)
 		} else {
@@ -68,11 +68,11 @@ func main() {
 	//These routines execute simultaneously
 	go add_to_channel(ch)
 	go fetch_from_channel(ch)
-	//go fetch2_from_channel(ch)
+	go fetch2_from_channel(ch)
 	/* por ahora y por desconocimiento al colocar fetch2_from_channel a leer del channel el fetch1 de la linea 61
 	no se ejecuta, en el futuro sabré el motivo :)*/
 
 	//delay is to prevent the exiting of main() before goroutines finish
-	time.Sleep(5 * time.Second) // sleep the main goRoutine
+	time.Sleep(1 * time.Second) // sleep the main goRoutine
 	fmt.Println("Inside main()")
 }

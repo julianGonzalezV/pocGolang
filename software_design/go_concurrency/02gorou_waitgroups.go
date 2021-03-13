@@ -5,14 +5,14 @@ import (
 	"sync"
 )
 
-/// Here we use the standar Done() function //allway recommended
+/// Here we use the standar Done() function //allways recommended
 func WaitG1() {
 	fmt.Println("::::::::::::Start WaitG1:::::::")
 	var wait sync.WaitGroup
 	wait.Add(1) // Set the WaitGroup counter in one, if you set 2 or 3 then the following lines must be 2-3 go routines
 	go func() {
 		fmt.Println("WaitG1 Done")
-		wait.Done() // Send done messajge to wait group as so as  release the locked waiting
+		wait.Done() // Send done message to wait group as so as  release the locked waiting
 		//  Done decrements the WaitGroup counter by one
 		// si no se libera entonces fatal error: all goroutines are asleep - deadlock!
 	}()
@@ -27,7 +27,7 @@ func WaitG2() {
 	wait.Add(1) // Set the WaitGroup counter in one, if you set 2 or 3 then the following lines must be 2-3 go routines
 	go func() {
 		fmt.Println("WaitG2 Done")
-		wait.Done() // Send done messajge to wait group as so as  release the locked waiting
+		wait.Done() // Send done message to wait group as so as  release the locked waiting
 		//  Done decrements the WaitGroup counter by one
 		// si no se libera entonces fatal error: all goroutines are asleep - deadlock!
 	}()
