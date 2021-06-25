@@ -88,11 +88,11 @@ func repeatedString(s string, n int) int {
 }
 
 func hourglassSum(arr [][]int) int {
-	fmt.Println(arr[0])
+	/*fmt.Println(arr[0])
 	fmt.Println(arr[0][0])
 	fmt.Println(arr[0][1])
 	fmt.Println(arr[0][2])
-	fmt.Println(arr[0][3])
+	fmt.Println(arr[0][3])*/
 	for i := 0; i < len(arr[0]); i++ {
 		for j := 0; j < len(arr[i]); j++ {
 			fmt.Print(arr[i][j])
@@ -315,20 +315,20 @@ func main() {
 		{0, 0, 0, 2, 0, 0},
 		{0, 0, 1, 2, 4, 0}}))
 
-	/*fmt.Println("#2 => ", hourglassSum([][]int{
+	fmt.Println("#2 => ", hourglassSum([][]int{
 		{-9, -9, -9, 1, 1, 1},
 		{0, -9, 0, 4, 3, 2},
 		{-9, -9, -9, 1, 2, 3},
 		{0, 0, 8, 6, 6, 0},
 		{0, 0, 0, -2, 0, 0},
-		{0, 0, 1, 2, 4, 0}}))*/
-
-	/*fmt.Println(":::::leftRotatio:::::::")
+		{0, 0, 1, 2, 4, 0}}))
+*/
+	fmt.Println(":::::leftRotatio:::::::")
 	fmt.Println(leftRotationGoStyle([]int{1, 2, 3, 4, 5}, 2))
 	fmt.Println(":::::rightRotationGoStyle:::::::")
-	fmt.Println(rightRotationGoStyle([]int{1, 2, 3, 4, 5}, 2))*/
+	fmt.Println(rightRotationGoStyle([]int{1, 2, 3, 4, 5}, 2))
 
-	fmt.Println(":::::Secuence Validation:::::::")
+	/*fmt.Println(":::::Secuence Validation:::::::")
 	fmt.Println("#sequenceValidation es => ", sequenceValidation([]string{
 		"ATGCGA",
 		"CAGTGC",
@@ -345,6 +345,6 @@ func main() {
 		"TTATTT",
 		"AGACGG",
 		"GCGTCA",
-		"TCACTG"}))
+		"TCACTG"}))*/
 
 }
