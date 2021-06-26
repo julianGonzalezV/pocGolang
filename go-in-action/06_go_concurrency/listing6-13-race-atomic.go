@@ -5,15 +5,20 @@
   "fmt"
    "runtime"
    "sync"
+   "sync/atomic"
  )
 
  var(
-	counter int 
+	counter int64 
 	wg sync.WaitGroup
  )
 
  /// RACE CONDITION: Cuando una o mas go routines acceder descontroladamente el mismo RECURSO
  /// Ejemplo de RACE CONDITION (no lo deseará en ambientes productivos :) )
+ /// Solción1:
+ ///	haga uso de atomic functions que bloquea(manera tradicional de los demás lenguajes ) 
+ ///	el recurso..atomic sirve para tipos NUMÉRICOS y PUNTEROS 
+ /// 	note el uso de atomic en incrementCounter y la respuesta es correcta
 func main(){
 	// Averiguar la cantidad de procesadores logicos en la màquina
 	defer fmt.Println("Cantidad de procesadores logicos ", runtime.NumCPU())
@@ -31,14 +36,8 @@ func main(){
 
    	fmt.Println("Start Goroutines")
 
-	/// Note el race conditio: Cuando se comenta la 2da go routine el resultado es el mismo R/2
-	/// y tienen sentido para una sola goroutine se incrementa 2 veces counter dentro de  incrementCounter
-	/// PEERO cuando deja la segunda goRoutine descomentada el resultado vuelve a ser R/2 ohhhhh
-	/// que pasó?R/ GR1 inicia pero no alcanza(YIELD) a aumentar a counter entonces counter = o -->  
-	/// Gr2 inicia y tampoco alnaza a aumentar a counter (YIELD) ----->
-	/// GR1 inicia y coloca a counter  = 1
-	/// GR" inicia y coloca a counter = 1  (recordar que GR2 cuando hace el YIELD se queda con counter = 0 )
-	/// TOMA TU RACE CONDITION
+	/// Cpn atomic se incrementa correctamente counter y el resultado final es la suma de la 
+	/// cantidad de incrementos por cada go Routine
 	go incrementCounter(1)
 	go incrementCounter(2)
 
@@ -58,11 +57,9 @@ func incrementCounter(id int) {
 	
 	// Display the alphabet three times
 	for count := 0; count < 2; count++ {
-		value := counter
+		// atomic lo que hace es sincronizar go routines
+		atomic.AddInt64(&counter, 1) 
 		runtime.Gosched()// Yield(ceder) the thread and be placed back in the queue
-		value++
-		counter = value
-
 	 }
  }
 
