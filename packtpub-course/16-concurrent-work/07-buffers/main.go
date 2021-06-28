@@ -58,11 +58,11 @@ func unBufferedChannelV2() {
 	ch <- 6
 	//.....ch <- n
 
-	close(ch) // el channel se ciera en el Main routine
+	close(ch) // el channel se cierra en el Main routine
 	//(recuerde que estamos en el main porque este es el que llamó la función)
 	// hasta que todo se envía
 	// Sino lo cerramos entonces obtendremos un all goroutines are asleep - deadlock!
-	// aunque se cierre el channel los mensajes se sguen enviando al readThemV2 rputine
+	// aunque se cierre el channel los mensajes se siguen enviando al readThemV2 routine
 	// y es porque el channel se cierra hasta que que el receptor de los mensajes los reciba todos.
 	wg.Wait()
 }

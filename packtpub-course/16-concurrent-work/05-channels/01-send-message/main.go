@@ -21,7 +21,10 @@ func main() {
 	log.Println("Channel2 -->")
 	ch2 := make(chan int, 1) // 1 es el tamanio del buffer/capacidad, si lo quita entonces
 	// saldrá error all goroutines are asleep - deadlock!..DUDA PORQUE EN EL channel de string
-	// no es necesario el buffer?
+	// no es necesario el buffer?R/ Porque no le definió un Buffer!, es decir que no tiene capacidad
+	// de almacenar un elemento por lo cual el routine que envía y el que recibe  el dato debe estar LISTOS!
+	// EN ESE Preciso instante,sino estan listas entonces CHANNELS HACEN QUE PRIMERO ESPEREN 
+	por defecto 
 	sendNumber(ch2)
 	i := <-ch2
 	log.Println(i)
